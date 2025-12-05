@@ -37,8 +37,9 @@
 
         /* 內容文字斷行處理 */
         .content-display {
-            white-space: pre-line; /* 保留換行 */
+            white-space: pre-wrap; /* 修正：使用 pre-wrap 更能保留原始換行與空白 */
             line-height: 1.8;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -313,33 +314,81 @@
             lucide.createIcons(); // 初始化圖示
         });
 
+        // ==========================================
+        //  CSV 解析器 (解決換行與逗號切斷文字的問題)
+        // ==========================================
+        function parseCSV(text) {
+            const rows = [];
+            let currentRow = [];
+            let cell = '';
+            let inQuote = false;
+            
+            // 統一換行符號
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const nextChar = text[i + 1];
+                
+                if (inQuote) {
+                    if (char === '"') {
+                        if (nextChar === '"') {
+                            // 遇到兩個引號代表轉義 (Escaped Quote)
+                            cell += '"';
+                            i++; // 跳過下一個引號
+                        } else {
+                            // 引號結束
+                            inQuote = false;
+                        }
+                    } else {
+                        cell += char;
+                    }
+                } else {
+                    if (char === '"') {
+                        inQuote = true;
+                    } else if (char === ',') {
+                        currentRow.push(cell.trim());
+                        cell = '';
+                    } else if (char === '\n') {
+                        currentRow.push(cell.trim());
+                        rows.push(currentRow);
+                        currentRow = [];
+                        cell = '';
+                    } else {
+                        cell += char;
+                    }
+                }
+            }
+            // 處理最後一個欄位
+            if (cell || currentRow.length > 0) {
+                currentRow.push(cell.trim());
+                rows.push(currentRow);
+            }
+            return rows;
+        }
+
         // 1. 抓取資料
         async function fetchData() {
             try {
                 const response = await fetch(SHEET_CSV_URL);
                 const data = await response.text();
                 
-                // 簡單解析 CSV (分割換行與逗號)
-                const rows = data.split('\n').slice(1); // 去掉第一行標題
-                allAnnouncements = rows.map((row, index) => {
-                    // 處理 CSV 中的逗號 (這裡用簡單 split，若內容有逗號可能會切錯，建議內容儘量不要有逗號)
-                    // 進階：如果內容真的有逗號，這個簡單的 split 可能會切錯，但在簡單使用情境下通常ok
-                    // 如果需要更強大的解析，可以引入 PapaParse
-                    const cols = row.split(',');
+                // 使用新的解析器取代原本簡單的 split
+                const rows = parseCSV(data);
+                
+                // 去掉第一行標題，並處理資料
+                allAnnouncements = rows.slice(1).map((cols, index) => {
+                    // 防呆：如果欄位少於3個，視為無效資料
                     if (cols.length < 3) return null;
                     
-                    // 組合可能被切斷的內容 (如果內容中有逗號)
-                    // 這是一個簡單的防錯機制：假設前三欄固定是 Date, Category, Title
-                    // 後面的全部視為內容，最後一欄嘗試抓連結
-                    // 但因為 Google Sheet CSV 格式複雜，這裡先維持簡單版
-                    
+                    // 根據您提供的欄位順序：Date, Category, Title, Content, Link
                     return {
                         id: index,
-                        date: cols[0]?.trim(),
-                        category: cols[1]?.trim(),
-                        title: cols[2]?.trim(),
-                        content: cols[3]?.trim() || "", // 簡單處理
-                        link: cols[4]?.trim() || ""
+                        date: cols[0] || "",
+                        category: cols[1] || "",
+                        title: cols[2] || "",
+                        content: cols[3] || "", // 現在這裡可以正確讀取多行文字了
+                        link: cols[4] || ""
                     };
                 }).filter(item => item !== null);
 
@@ -390,9 +439,6 @@
                 else if(item.category === '評鑑') { badgeColor = "bg-yellow-100 text-yellow-800"; sideColor = "bg-yellow-500"; }
                 else if(item.category === '前後測') { badgeColor = "bg-zinc-100 text-zinc-800"; sideColor = "bg-zinc-600"; }
 
-                // 為了讓按鈕能找到正確資料，我們將 item 存入 data 屬性或是直接傳遞 index (需在 filtered 中找回原始資料較麻煩，這裡直接傳參數)
-                // 簡單作法：將內容截斷顯示 (line-clamp-3)
-                
                 const html = `
                 <div class="group bg-white rounded-xl border border-stone-200 shadow-sm hover:shadow-xl hover:border-[#D92424]/30 transition-all duration-300 overflow-hidden relative cursor-pointer" onclick="openModal('${item.id}')">
                     <!-- 左側裝飾線 -->
