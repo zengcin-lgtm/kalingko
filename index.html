@@ -34,6 +34,12 @@
         .animate-pulse-slow {
             animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+
+        /* 內容文字斷行處理 */
+        .content-display {
+            white-space: pre-line; /* 保留換行 */
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen relative">
@@ -228,6 +234,68 @@
         </div>
     </footer>
 
+    <!-- 彈跳視窗 (Modal) -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- 背景遮罩 -->
+        <div class="fixed inset-0 bg-stone-900/75 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+
+        <!-- 視窗內容 -->
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border-t-8 border-[#D92424]">
+                    
+                    <!-- 關閉按鈕 -->
+                    <div class="absolute right-0 top-0 pr-4 pt-4 z-10">
+                        <button type="button" onclick="closeModal()" class="rounded-full bg-white text-stone-400 hover:text-stone-500 focus:outline-none p-1">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+                    <!-- 內容 -->
+                    <div class="px-6 py-6 sm:p-8">
+                        <div class="sm:flex sm:items-start gap-4 mb-4">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-14 sm:w-14 amis-red-text">
+                                <i data-lucide="file-text" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left flex-1">
+                                <!-- 分類與日期 -->
+                                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2">
+                                    <span id="modal-category" class="inline-flex items-center rounded-md px-2 py-1 text-xs font-bold ring-1 ring-inset">分類</span>
+                                    <span class="text-stone-400 text-sm">|</span>
+                                    <span id="modal-date" class="text-stone-500 text-sm font-mono">2023-01-01</span>
+                                </div>
+                                <h3 class="text-2xl font-bold leading-8 text-stone-900 mb-2" id="modal-title">公告標題</h3>
+                            </div>
+                        </div>
+
+                        <!-- 分隔線 -->
+                        <div class="h-px bg-stone-200 w-full my-4"></div>
+
+                        <!-- 完整內文 -->
+                        <div class="mt-2">
+                            <p class="text-base text-stone-700 content-display" id="modal-content">
+                                內文...
+                            </p>
+                        </div>
+
+                        <!-- 連結區塊 -->
+                        <div id="modal-link-area" class="mt-8 hidden">
+                            <a href="#" id="modal-link" target="_blank" class="flex w-full items-center justify-center gap-2 rounded-lg amis-red px-3 py-3 text-sm font-bold text-white shadow-sm hover:bg-red-700 transition-colors">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                前往相關連結 / 下載附件
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 底部裝飾 -->
+                    <div class="bg-stone-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-stone-100">
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-stone-900 shadow-sm ring-1 ring-inset ring-stone-300 hover:bg-stone-50 sm:mt-0 sm:w-auto" onclick="closeModal()">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript 邏輯 -->
     <script>
         // 設定區：您的 Google Sheet CSV 連結
@@ -255,14 +323,22 @@
                 const rows = data.split('\n').slice(1); // 去掉第一行標題
                 allAnnouncements = rows.map((row, index) => {
                     // 處理 CSV 中的逗號 (這裡用簡單 split，若內容有逗號可能會切錯，建議內容儘量不要有逗號)
+                    // 進階：如果內容真的有逗號，這個簡單的 split 可能會切錯，但在簡單使用情境下通常ok
+                    // 如果需要更強大的解析，可以引入 PapaParse
                     const cols = row.split(',');
                     if (cols.length < 3) return null;
+                    
+                    // 組合可能被切斷的內容 (如果內容中有逗號)
+                    // 這是一個簡單的防錯機制：假設前三欄固定是 Date, Category, Title
+                    // 後面的全部視為內容，最後一欄嘗試抓連結
+                    // 但因為 Google Sheet CSV 格式複雜，這裡先維持簡單版
+                    
                     return {
                         id: index,
                         date: cols[0]?.trim(),
                         category: cols[1]?.trim(),
                         title: cols[2]?.trim(),
-                        content: cols[3]?.trim() || "",
+                        content: cols[3]?.trim() || "", // 簡單處理
                         link: cols[4]?.trim() || ""
                     };
                 }).filter(item => item !== null);
@@ -304,7 +380,7 @@
             }
 
             // 產生 HTML
-            filtered.forEach(item => {
+            filtered.forEach((item, index) => {
                 // 根據分類決定顏色
                 let badgeColor = "bg-stone-100 text-stone-700";
                 let sideColor = "bg-stone-400";
@@ -314,8 +390,11 @@
                 else if(item.category === '評鑑') { badgeColor = "bg-yellow-100 text-yellow-800"; sideColor = "bg-yellow-500"; }
                 else if(item.category === '前後測') { badgeColor = "bg-zinc-100 text-zinc-800"; sideColor = "bg-zinc-600"; }
 
+                // 為了讓按鈕能找到正確資料，我們將 item 存入 data 屬性或是直接傳遞 index (需在 filtered 中找回原始資料較麻煩，這裡直接傳參數)
+                // 簡單作法：將內容截斷顯示 (line-clamp-3)
+                
                 const html = `
-                <div class="group bg-white rounded-xl border border-stone-200 shadow-sm hover:shadow-xl hover:border-[#D92424]/30 transition-all duration-300 overflow-hidden relative">
+                <div class="group bg-white rounded-xl border border-stone-200 shadow-sm hover:shadow-xl hover:border-[#D92424]/30 transition-all duration-300 overflow-hidden relative cursor-pointer" onclick="openModal('${item.id}')">
                     <!-- 左側裝飾線 -->
                     <div class="absolute left-0 top-0 bottom-0 w-1.5 ${sideColor} bg-opacity-80"></div>
 
@@ -343,17 +422,16 @@
                                 ${item.title}
                             </h3>
                             
-                            <p class="text-stone-600 leading-relaxed">${item.content}</p>
+                            <!-- 限制顯示行數 line-clamp-3，多餘隱藏 -->
+                            <p class="text-stone-600 leading-relaxed line-clamp-3">${item.content}</p>
 
-                            ${item.link && item.link !== '#' ? `
-                                <div class="pt-3 flex justify-end md:justify-start">
-                                    <a href="${item.link}" target="_blank" rel="noopener noreferrer"
-                                       class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-stone-800 text-white text-sm font-bold hover:bg-[#D92424] transition-colors shadow-sm group-hover:shadow-md">
-                                        <i data-lucide="external-link" class="w-4 h-4"></i>
-                                        查看詳情
-                                    </a>
-                                </div>
-                            ` : ''}
+                            <div class="pt-3 flex justify-between items-center border-t border-stone-100 mt-2">
+                                <span class="text-xs text-stone-400 font-medium">點擊查看詳情</span>
+                                <button class="inline-flex items-center gap-1 text-sm font-bold text-[#D92424] hover:underline">
+                                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                                    閱讀完整內容
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -406,6 +484,49 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        // 6. 彈跳視窗功能
+        window.openModal = function(id) {
+            // 從原始資料中找到對應的公告 (注意: id 在這裡是 index)
+            const item = allAnnouncements.find(a => a.id == id);
+            if (!item) return;
+
+            // 填入資料
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-date').textContent = item.date;
+            document.getElementById('modal-content').textContent = item.content; // textContent 會保留純文字，CSS white-space: pre-line 會處理換行
+            
+            // 設定分類標籤顏色
+            const catBadge = document.getElementById('modal-category');
+            catBadge.textContent = item.category;
+            
+            // 重置 class
+            catBadge.className = "inline-flex items-center rounded-md px-2 py-1 text-xs font-bold ring-1 ring-inset";
+            if(item.category === '研習') catBadge.classList.add('bg-red-50', 'text-red-700', 'ring-red-600/20');
+            else if(item.category === '訪視') catBadge.classList.add('bg-emerald-50', 'text-emerald-700', 'ring-emerald-600/20');
+            else if(item.category === '評鑑') catBadge.classList.add('bg-yellow-50', 'text-yellow-800', 'ring-yellow-600/20');
+            else if(item.category === '前後測') catBadge.classList.add('bg-zinc-50', 'text-zinc-700', 'ring-zinc-600/20');
+            else catBadge.classList.add('bg-gray-50', 'text-gray-600', 'ring-gray-500/10');
+
+            // 處理外部連結
+            const linkArea = document.getElementById('modal-link-area');
+            const linkBtn = document.getElementById('modal-link');
+            if (item.link && item.link !== '#') {
+                linkArea.classList.remove('hidden');
+                linkBtn.href = item.link;
+            } else {
+                linkArea.classList.add('hidden');
+            }
+
+            // 顯示視窗
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 禁止背景捲動
+        }
+
+        window.closeModal = function() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // 恢復背景捲動
+        }
 
     </script>
 </body>
