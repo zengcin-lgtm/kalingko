@@ -49,7 +49,8 @@
     <div class="fixed inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
     <!-- 頁首 Header -->
-    <header class="amis-red shadow-lg sticky top-0 z-20 overflow-hidden">
+    <!-- 修正：移除 overflow-hidden，否則手機版選單會被切掉 -->
+    <header class="amis-red shadow-lg sticky top-0 z-20">
         <!-- 圖騰裝飾條 -->
         <div class="h-3 w-full flex">
             <div class="h-full w-1/5 bg-[#D92424]"></div>
@@ -87,7 +88,8 @@
         <div class="h-1 bg-yellow-400 w-full"></div>
 
         <!-- 手機版選單 (預設隱藏) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF7] text-stone-800 absolute w-full left-0 z-50 shadow-xl border-t border-stone-200">
+        <!-- 修正：加入 top-full 確保選單在 Header 下方顯示 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF7] text-stone-800 absolute top-full w-full left-0 z-50 shadow-xl border-t border-stone-200">
             <div class="p-4 space-y-2">
                 <button onclick="filterCategory('all')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4"></i> 全部公告</button>
                 <button onclick="filterCategory('研習')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習資訊</button>
