@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>沉浸式族語教學幼兒園 - 花蓮區工作圈公告</title>
+    <title>沉浸式族語教學幼兒園 - 花蓮區工作圈</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Lucide Icons -->
@@ -14,6 +14,7 @@
         body {
             font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
             background-color: #FDFBF7;
+            scroll-behavior: smooth; /* 讓點擊連結時有平滑滾動效果 */
         }
         .amis-red { background-color: #D92424; color: white; }
         .amis-red-text { color: #D92424; }
@@ -38,15 +39,34 @@
             line-height: 1.8;
             word-wrap: break-word;
         }
+
+        /* 區塊標題樣式 */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1F1F1F;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background-color: #D92424;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen relative">
 
     <!-- 背景紋理 -->
-    <div class="fixed inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="fixed inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
     <!-- 頁首 Header -->
-    <header class="amis-red shadow-lg sticky top-0 z-20">
+    <header class="amis-red shadow-lg sticky top-0 z-30">
         <!-- 圖騰裝飾條 -->
         <div class="h-3 w-full flex">
             <div class="h-full w-1/5 bg-[#D92424]"></div>
@@ -56,21 +76,27 @@
             <div class="h-full w-1/5 bg-[#10B981]"></div>
         </div>
 
-        <div class="container mx-auto px-4 py-5 flex justify-between items-center relative z-10 text-white">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center amis-red-text shadow-md ring-4 ring-yellow-400">
-                    <i data-lucide="sun" class="w-8 h-8 animate-pulse-slow"></i>
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center relative z-10 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center amis-red-text shadow-md ring-2 ring-yellow-400">
+                    <i data-lucide="sun" class="w-7 h-7 animate-pulse-slow"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold leading-tight tracking-wide drop-shadow-sm">
+                    <h1 class="text-lg md:text-xl font-bold leading-tight tracking-wide drop-shadow-sm">
                         沉浸式族語教學幼兒園
                     </h1>
-                    <p class="text-sm md:text-base text-red-100 font-medium flex items-center gap-2">
-                        <span class="bg-white/20 px-2 py-0.5 rounded text-xs md:text-sm">Tafalong</span>
-                        花蓮區工作圈公告平台
+                    <p class="text-xs md:text-sm text-red-100 font-medium">
+                        花蓮區工作圈
                     </p>
                 </div>
             </div>
+
+            <!-- 桌機導覽列 (新增) -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-bold tracking-wide">
+                <a href="#announcements-section" class="hover:text-yellow-300 transition-colors flex items-center gap-1"><i data-lucide="bell" class="w-4 h-4"></i> 最新公告</a>
+                <a href="#about-section" class="hover:text-yellow-300 transition-colors flex items-center gap-1"><i data-lucide="users" class="w-4 h-4"></i> 關於工作圈</a>
+                <a href="#resources-section" class="hover:text-yellow-300 transition-colors flex items-center gap-1"><i data-lucide="download" class="w-4 h-4"></i> 資源與連結</a>
+            </nav>
 
             <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-white/20 rounded-full transition-colors">
                 <i data-lucide="menu" class="w-7 h-7"></i>
@@ -83,11 +109,9 @@
         <!-- 手機版選單 -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF7] text-stone-800 absolute top-full w-full left-0 z-50 shadow-xl border-t border-stone-200">
             <div class="p-4 space-y-2">
-                <button onclick="filterCategory('all')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4"></i> 全部公告</button>
-                <button onclick="filterCategory('研習')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習資訊</button>
-                <button onclick="filterCategory('訪視')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4"></i> 訪視輔導</button>
-                <button onclick="filterCategory('評鑑')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="clipboard-list" class="w-4 h-4"></i> 評鑑考核</button>
-                <button onclick="filterCategory('前後測')" class="w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> 前後測驗</button>
+                <a href="#announcements-section" onclick="closeMobileMenu()" class="block w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4 text-red-600"></i> 最新公告</a>
+                <a href="#about-section" onclick="closeMobileMenu()" class="block w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 text-red-600"></i> 關於工作圈</a>
+                <a href="#resources-section" onclick="closeMobileMenu()" class="block w-full text-left px-4 py-3 rounded-lg font-bold bg-white border border-stone-200 hover:bg-stone-100 flex items-center gap-2"><i data-lucide="download" class="w-4 h-4 text-red-600"></i> 資源與連結</a>
                 
                 <div class="mt-4 pt-4 border-t-2 border-stone-200 text-sm text-stone-600 px-4">
                     <p class="font-bold amis-red-text mb-1 flex items-center gap-1"><i data-lucide="user" class="w-4 h-4"></i> 聯絡窗口：</p>
@@ -98,115 +122,239 @@
     </header>
 
     <!-- 主要內容區 -->
-    <main class="container mx-auto px-4 py-8 md:flex md:gap-8 flex-1 relative z-10">
+    <main class="flex-1 relative z-10">
         
-        <!-- 左側邊欄 (桌機版) -->
-        <aside class="hidden md:block w-64 shrink-0 space-y-6">
-            <div class="bg-white rounded-xl shadow-md border-l-4 border-[#D92424] p-4 sticky top-32">
-                <h3 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-4 px-2 border-b pb-2">公告分類</h3>
-                <div class="space-y-2" id="desktop-filters">
-                    <button onclick="filterCategory('all')" id="btn-all" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 amis-red text-white shadow-lg translate-x-1">
-                        <i data-lucide="bell" class="w-4 h-4"></i> 全部公告
-                    </button>
-                    <button onclick="filterCategory('研習')" id="btn-研習" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
-                        <i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習資訊
-                    </button>
-                    <button onclick="filterCategory('訪視')" id="btn-訪視" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
-                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> 訪視輔導
-                    </button>
-                    <button onclick="filterCategory('評鑑')" id="btn-評鑑" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
-                        <i data-lucide="clipboard-list" class="w-4 h-4"></i> 評鑑考核
-                    </button>
-                    <button onclick="filterCategory('前後測')" id="btn-前後測" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
-                        <i data-lucide="book-open" class="w-4 h-4"></i> 前後測驗
-                    </button>
+        <!-- 1. 公告區塊 (原本的內容) -->
+        <section id="announcements-section" class="container mx-auto px-4 py-12 md:flex md:gap-8 min-h-[600px]">
+             <!-- 左側邊欄 (公告分類) -->
+            <aside class="hidden md:block w-64 shrink-0 space-y-6">
+                <div class="bg-white rounded-xl shadow-md border-l-4 border-[#D92424] p-4 sticky top-32">
+                    <h3 class="text-sm font-bold text-stone-500 uppercase tracking-wider mb-4 px-2 border-b pb-2">公告分類</h3>
+                    <div class="space-y-2" id="desktop-filters">
+                        <button onclick="filterCategory('all')" id="btn-all" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 amis-red text-white shadow-lg translate-x-1">
+                            <i data-lucide="bell" class="w-4 h-4"></i> 全部公告
+                        </button>
+                        <button onclick="filterCategory('研習')" id="btn-研習" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習資訊
+                        </button>
+                        <button onclick="filterCategory('訪視')" id="btn-訪視" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i> 訪視輔導
+                        </button>
+                        <button onclick="filterCategory('評鑑')" id="btn-評鑑" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="clipboard-list" class="w-4 h-4"></i> 評鑑考核
+                        </button>
+                        <button onclick="filterCategory('前後測')" id="btn-前後測" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> 前後測驗
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </aside>
 
-            <!-- 聯絡資訊卡片 -->
-            <div class="bg-white rounded-xl p-0 border border-stone-200 shadow-md sticky top-[480px] overflow-hidden">
-                <div class="bg-[#1F1F1F] p-3 text-white">
-                    <h4 class="font-bold flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                        工作圈聯絡資訊
-                    </h4>
-                </div>
-                <div class="p-5 space-y-4 text-sm text-stone-700">
-                    <div class="flex items-start gap-3 group">
-                        <div class="bg-red-100 p-2 rounded-full amis-red-text">
-                            <i data-lucide="user" class="w-4 h-4"></i>
-                        </div>
-                        <span>
-                            <span class="font-bold text-stone-900 block mb-1">承辦人</span>
-                            Foday老師
+            <!-- 右側公告列表 -->
+            <div class="flex-1 flex flex-col">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <h2 class="text-3xl font-bold text-stone-800 flex items-center gap-3">
+                        <span class="w-3 h-10 bg-[#D92424] rounded-sm shadow-sm inline-block relative overflow-hidden">
+                            <span class="absolute top-0 left-0 w-full h-1/3 bg-white/20"></span>
+                            <span class="absolute bottom-0 left-0 w-full h-1/3 bg-black/20"></span>
                         </span>
+                        <span id="current-category-title">全部公告</span>
+                    </h2>
+                    
+                    <div class="relative w-full md:w-80 group">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 w-4 h-4"></i>
+                        <input type="text" id="search-input" placeholder="搜尋公告..." 
+                            class="w-full pl-10 pr-4 py-3 rounded-full border-2 border-stone-200 bg-white focus:outline-none focus:border-[#D92424] focus:ring-1 focus:ring-[#D92424] transition-all shadow-sm">
                     </div>
-                    <div class="flex items-start gap-3 group">
-                        <div class="bg-red-100 p-2 rounded-full amis-red-text">
-                            <i data-lucide="phone" class="w-4 h-4"></i>
+                </div>
+
+                <div class="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden flex-1 flex flex-col transition-all">
+                    <!-- 列表標頭 (僅桌機顯示) -->
+                    <div class="hidden md:flex bg-stone-50 border-b border-stone-200 px-6 py-3 text-xs font-bold text-stone-500 uppercase tracking-wider">
+                        <div class="w-32">日期</div>
+                        <div class="w-24">分類</div>
+                        <div class="flex-1">標題</div>
+                        <div class="w-28 text-center">承辦人</div>
+                        <div class="w-10"></div>
+                    </div>
+
+                    <!-- 內容區域 -->
+                    <div id="announcement-list" class="divide-y divide-stone-100 flex-1">
+                        <!-- 讀取中動畫 -->
+                        <div class="p-8 space-y-4 animate-pulse">
+                            <div class="h-8 bg-stone-100 rounded w-full"></div>
+                            <div class="h-8 bg-stone-100 rounded w-full"></div>
+                            <div class="h-8 bg-stone-100 rounded w-full"></div>
                         </div>
-                        <span>
-                            <span class="font-bold text-stone-900 block mb-1">電話</span>
-                            <a href="tel:038701134" class="hover:text-[#D92424] font-mono text-base">(03)870-1134</a>
-                            <span class="text-stone-500 block">轉 16</span>
-                        </span>
+                    </div>
+                    
+                    <!-- 分頁/查看更多控制器 -->
+                    <div id="pagination-container" class="bg-stone-50 border-t border-stone-200 px-6 py-4 flex items-center justify-center">
+                        <!-- 分頁內容由 JS 生成 -->
                     </div>
                 </div>
-                <div class="h-1 bg-gradient-to-r from-[#D92424] via-yellow-400 to-[#10B981]"></div>
             </div>
-        </aside>
-
-        <!-- 右側內容區 -->
-        <section class="flex-1 flex flex-col min-h-[600px]">
-            <!-- 搜尋與標題 -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <h2 class="text-3xl font-bold text-stone-800 flex items-center gap-3">
-                    <span class="w-3 h-10 bg-[#D92424] rounded-sm shadow-sm inline-block relative overflow-hidden">
-                        <span class="absolute top-0 left-0 w-full h-1/3 bg-white/20"></span>
-                        <span class="absolute bottom-0 left-0 w-full h-1/3 bg-black/20"></span>
-                    </span>
-                    <span id="current-category-title">全部公告</span>
-                </h2>
-                
-                <div class="relative w-full md:w-80 group">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 w-4 h-4"></i>
-                    <input type="text" id="search-input" placeholder="搜尋公告標題..." 
-                           class="w-full pl-10 pr-4 py-3 rounded-full border-2 border-stone-200 bg-white focus:outline-none focus:border-[#D92424] focus:ring-1 focus:ring-[#D92424] transition-all shadow-sm">
-                </div>
-            </div>
-
-            <!-- 公告列表容器 (改為清單模式) -->
-            <div class="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden flex-1 flex flex-col">
-                <!-- 列表標頭 (僅桌機顯示) -->
-                <div class="hidden md:flex bg-stone-50 border-b border-stone-200 px-6 py-3 text-xs font-bold text-stone-500 uppercase tracking-wider">
-                    <div class="w-32">日期</div>
-                    <div class="w-24">分類</div>
-                    <div class="flex-1">標題</div>
-                    <div class="w-28 text-center">承辦人</div>
-                    <div class="w-10"></div>
-                </div>
-
-                <!-- 內容區域 -->
-                <div id="announcement-list" class="divide-y divide-stone-100 flex-1">
-                    <!-- 讀取中動畫 -->
-                    <div class="p-8 space-y-4 animate-pulse">
-                        <div class="h-8 bg-stone-100 rounded w-full"></div>
-                        <div class="h-8 bg-stone-100 rounded w-full"></div>
-                        <div class="h-8 bg-stone-100 rounded w-full"></div>
-                    </div>
-                </div>
-                
-                <!-- 分頁控制器 -->
-                <div id="pagination-container" class="bg-stone-50 border-t border-stone-200 px-6 py-4 flex items-center justify-between">
-                    <!-- 分頁內容由 JS 生成 -->
-                </div>
-            </div>
-
         </section>
+
+        <!-- 分隔圖騰 -->
+        <div class="h-4 w-full flex opacity-50">
+            <div class="h-full w-1/5 bg-[#D92424]"></div>
+            <div class="h-full w-1/5 bg-white"></div>
+            <div class="h-full w-1/5 bg-[#1F1F1F]"></div>
+            <div class="h-full w-1/5 bg-[#FACC15]"></div>
+            <div class="h-full w-1/5 bg-[#10B981]"></div>
+        </div>
+
+        <!-- 2. 關於工作圈 (About Section) -->
+        <section id="about-section" class="py-16 bg-white relative">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title">關於工作圈</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="md:col-span-2 space-y-4 text-stone-700 leading-relaxed">
+                        <p>
+                            為了落實《原住民族語言發展法》，挽救瀕危的族語，原住民族委員會推動「沉浸式族語教學幼兒園計畫」。花蓮區工作圈致力於輔導在地幼兒園，營造全族語的學習環境，讓幼兒在自然的情境中學習母語。
+                        </p>
+                        <p>
+                            我們透過定期訪視、師資培訓、教材研發以及教學觀摩，協助族語教保員提升專業能力，並串聯部落資源，讓文化在校園中扎根。
+                        </p>
+                    </div>
+                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 shadow-sm">
+                        <h4 class="font-bold text-stone-800 mb-3 flex items-center gap-2"><i data-lucide="target" class="text-red-600"></i> 工作重點</h4>
+                        <ul class="space-y-2 text-sm text-stone-600">
+                            <li class="flex gap-2"><span class="text-red-500">●</span> 傳達政策及行政公告，建立順暢溝通窗口</li>
+                            <li class="flex gap-2"><span class="text-red-500">●</span> 凝聚教保員共識，規劃符合需求的研習主題</li>
+                            <li class="flex gap-2"><span class="text-red-500">●</span> 彙整在地化教學建議，提供政策滾動修正參考</li>
+                            <li class="flex gap-2"><span class="text-red-500">●</span> 建立互助支持網絡，關懷教保員工作狀況</li>
+                            <li class="flex gap-2"><span class="text-red-500">●</span> 協助推動沉浸式族語教學相關計畫與執行</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-stone-800 mb-6 flex items-center gap-2">
+                    <span class="w-1 h-6 bg-yellow-400 rounded-full"></span> 參與園所
+                </h3>
+                
+                <!-- 參與園所列表 (更新版) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+                    <!-- 1. 太巴塱 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">太巴塱國小附設幼兒園</p><p class="text-xs text-stone-500">光復鄉</p></div>
+                    </div>
+                    <!-- 2. 光復鄉立 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">光復鄉立幼兒園</p><p class="text-xs text-stone-500">光復鄉</p></div>
+                    </div>
+                    <!-- 3. 豐濱 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">豐濱國小附設幼兒園</p><p class="text-xs text-stone-500">豐濱鄉</p></div>
+                    </div>
+                    <!-- 4. 明利 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">明利國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+                    </div>
+                    <!-- 5. 見晴 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">見晴國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+                    </div>
+                    <!-- 6. 紅葉 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">紅葉國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+                    </div>
+                    <!-- 7. 新城 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">新城國小附設幼兒園</p><p class="text-xs text-stone-500">新城鄉</p></div>
+                    </div>
+                     <!-- 8. 秀林 -->
+                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">秀林鄉立幼兒園</p><p class="text-xs text-stone-500">秀林鄉 (佳民主園、和平分班)</p></div>
+                    </div>
+                    <!-- 9. 卓樂 -->
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
+                        <div><p class="font-bold text-stone-800">卓樂國小附設幼兒園</p><p class="text-xs text-stone-500">卓溪鄉</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 資源與連結 (Resources Section) -->
+        <section id="resources-section" class="py-16 bg-stone-100">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title">資源與連結</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 檔案下載區 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-6 flex items-center gap-2 border-b border-stone-100 pb-3">
+                            <i data-lucide="folder-down" class="text-emerald-600"></i> 表格與文件下載
+                        </h3>
+                        <div class="space-y-3">
+                            <!-- 下載項目 (範例，可替換真實連結) -->
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-stone-50 group border border-transparent hover:border-stone-200 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="file-text" class="text-stone-400 group-hover:text-red-500"></i>
+                                    <span class="text-stone-700 font-medium group-hover:text-red-600">112年度 訪視輔導紀錄表</span>
+                                </div>
+                                <i data-lucide="download" class="w-4 h-4 text-stone-300 group-hover:text-red-500"></i>
+                            </a>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-stone-50 group border border-transparent hover:border-stone-200 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="file-text" class="text-stone-400 group-hover:text-red-500"></i>
+                                    <span class="text-stone-700 font-medium group-hover:text-red-600">請假單 / 公出單格式</span>
+                                </div>
+                                <i data-lucide="download" class="w-4 h-4 text-stone-300 group-hover:text-red-500"></i>
+                            </a>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-stone-50 group border border-transparent hover:border-stone-200 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="file-text" class="text-stone-400 group-hover:text-red-500"></i>
+                                    <span class="text-stone-700 font-medium group-hover:text-red-600">沉浸式教學教案範本</span>
+                                </div>
+                                <i data-lucide="download" class="w-4 h-4 text-stone-300 group-hover:text-red-500"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 外部連結區 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-6 flex items-center gap-2 border-b border-stone-100 pb-3">
+                            <i data-lucide="link" class="text-blue-600"></i> 常用網站連結
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <a href="https://www.cip.gov.tw/" target="_blank" class="flex items-center gap-3 p-4 rounded-lg bg-stone-50 hover:bg-red-50 hover:shadow-md transition-all group border border-stone-100">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-stone-400 group-hover:text-red-600 shadow-sm"><i data-lucide="globe"></i></div>
+                                <span class="font-bold text-stone-700 group-hover:text-red-800">原住民族委員會</span>
+                            </a>
+                            <a href="https://e-dictionary.ilrdf.org.tw/" target="_blank" class="flex items-center gap-3 p-4 rounded-lg bg-stone-50 hover:bg-red-50 hover:shadow-md transition-all group border border-stone-100">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-stone-400 group-hover:text-red-600 shadow-sm"><i data-lucide="book-a"></i></div>
+                                <span class="font-bold text-stone-700 group-hover:text-red-800">族語線上詞典</span>
+                            </a>
+                            <a href="https://web.klokah.tw/" target="_blank" class="flex items-center gap-3 p-4 rounded-lg bg-stone-50 hover:bg-red-50 hover:shadow-md transition-all group border border-stone-100">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-stone-400 group-hover:text-red-600 shadow-sm"><i data-lucide="music"></i></div>
+                                <span class="font-bold text-stone-700 group-hover:text-red-800">族語E樂園</span>
+                            </a>
+                             <a href="https://ilrdf.cip.gov.tw/" target="_blank" class="flex items-center gap-3 p-4 rounded-lg bg-stone-50 hover:bg-red-50 hover:shadow-md transition-all group border border-stone-100">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-stone-400 group-hover:text-red-600 shadow-sm"><i data-lucide="search"></i></div>
+                                <span class="font-bold text-stone-700 group-hover:text-red-800">語發基金會</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="amis-black text-stone-400 mt-16 relative">
+    <footer class="amis-black text-stone-400 relative">
         <div class="h-3 w-full flex">
             <div class="h-full w-1/5 bg-[#D92424]"></div>
             <div class="h-full w-1/5 bg-white"></div>
@@ -230,11 +378,16 @@
                     <p class="text-white font-medium text-lg tracking-wide leading-relaxed">
                         花蓮縣光復鄉<br/>太巴塱國民小學附設幼兒園
                     </p>
+                    <!-- 聯絡資訊放在 Footer -->
+                    <div class="mt-4 pt-4 border-t border-stone-800 text-sm">
+                        <p class="flex items-center justify-center md:justify-start gap-2 mb-1"><i data-lucide="user" class="w-4 h-4"></i> 承辦人：Foday老師</p>
+                        <p class="flex items-center justify-center md:justify-start gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 電話：(03)870-1134 轉 16</p>
+                    </div>
                 </div>
             </div>
             
             <div class="text-center text-xs text-stone-600 flex flex-col items-center gap-2">
-                <p>花蓮區工作圈公告平台 · O ngangan no Pangcah</p>
+                <p>花蓮區工作圈公告平台</p>
                 <p>&copy; <span id="year"></span> All Rights Reserved.</p>
             </div>
         </div>
@@ -301,9 +454,13 @@
         let currentCategory = 'all';
         let searchTerm = '';
         
-        // 分頁相關變數
+        // 模式切換變數
+        let isExpanded = false; // 是否顯示所有內容
+        const PREVIEW_LIMIT = 5; // 預設只顯示 5 筆
+        const FULL_PAGE_LIMIT = 10; // 展開後每頁顯示 10 筆
+        
+        // 分頁變數
         let currentPage = 1;
-        const itemsPerPage = 10;
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('year').textContent = new Date().getFullYear();
@@ -311,7 +468,6 @@
             lucide.createIcons(); 
         });
 
-        // CSV 解析器
         function parseCSV(text) {
             const rows = [];
             let currentRow = [];
@@ -342,7 +498,6 @@
                 const data = await response.text();
                 const rows = parseCSV(data);
                 
-                // 注意：這裡增加了讀取第6欄 (cols[5]) 作為承辦人
                 allAnnouncements = rows.slice(1).map((cols, index) => {
                     if (cols.length < 3) return null;
                     return {
@@ -352,7 +507,7 @@
                         title: cols[2] || "",
                         content: cols[3] || "", 
                         link: cols[4] || "",
-                        organizer: cols[5] || "" // 新增：承辦人欄位
+                        organizer: cols[5] || ""
                     };
                 }).filter(item => item !== null);
 
@@ -371,28 +526,33 @@
             const container = document.getElementById('announcement-list');
             const paginationContainer = document.getElementById('pagination-container');
             
-            // 1. 篩選資料
             const filtered = allAnnouncements.filter(item => {
                 const matchCat = currentCategory === 'all' || item.category === currentCategory;
                 const matchSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                                     item.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    (item.organizer && item.organizer.toLowerCase().includes(searchTerm.toLowerCase())); // 允許搜尋承辦人
+                                    (item.organizer && item.organizer.toLowerCase().includes(searchTerm.toLowerCase()));
                 return matchCat && matchSearch;
             });
 
-            // 2. 分頁計算
             const totalItems = filtered.length;
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
             
-            // 確保當前頁數不超過總頁數
-            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-            if (totalItems === 0) currentPage = 1;
+            // 決定要顯示的資料範圍
+            let pageData = [];
+            
+            if (!isExpanded && totalItems > PREVIEW_LIMIT) {
+                // 預覽模式：只取前 5 筆
+                pageData = filtered.slice(0, PREVIEW_LIMIT);
+            } else {
+                // 完整模式或資料少於5筆：依分頁邏輯
+                const totalPages = Math.ceil(totalItems / FULL_PAGE_LIMIT);
+                if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+                if (totalItems === 0) currentPage = 1;
+                
+                const startIndex = (currentPage - 1) * FULL_PAGE_LIMIT;
+                const endIndex = startIndex + FULL_PAGE_LIMIT;
+                pageData = filtered.slice(startIndex, endIndex);
+            }
 
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageData = filtered.slice(startIndex, endIndex);
-
-            // 3. 渲染列表
             container.innerHTML = '';
             if (totalItems === 0) {
                 container.innerHTML = `
@@ -401,7 +561,7 @@
                         <p class="text-sm">Ina 正在努力整理資料中...</p>
                     </div>
                 `;
-                paginationContainer.innerHTML = ''; // 清空分頁
+                paginationContainer.innerHTML = '';
                 return;
             }
 
@@ -412,7 +572,6 @@
                 else if(item.category === '評鑑') badgeColor = "bg-yellow-50 text-yellow-800 border-yellow-200";
                 else if(item.category === '前後測') badgeColor = "bg-zinc-50 text-zinc-700 border-zinc-200";
 
-                // 列表式佈局 (Row)
                 const html = `
                 <div class="group px-6 py-4 border-b border-stone-100 hover:bg-red-50/50 transition-colors cursor-pointer flex flex-col md:flex-row md:items-center gap-2 md:gap-4" onclick="openModal('${item.id}')">
                     
@@ -455,12 +614,36 @@
             });
             
             lucide.createIcons();
-            renderPagination(totalPages, totalItems);
+            
+            // 決定底部顯示什麼：分頁器 還是 "查看更多" 按鈕
+            if (!isExpanded && totalItems > PREVIEW_LIMIT) {
+                renderViewMoreButton();
+            } else {
+                renderPagination(Math.ceil(totalItems / FULL_PAGE_LIMIT), totalItems);
+            }
         }
 
-        // 渲染分頁按鈕
+        // 渲染「查看更多」按鈕
+        function renderViewMoreButton() {
+            const container = document.getElementById('pagination-container');
+            container.innerHTML = `
+                <button onclick="expandList()" class="flex items-center gap-2 px-6 py-3 rounded-full bg-red-50 text-[#D92424] font-bold border border-red-200 hover:bg-[#D92424] hover:text-white transition-all shadow-sm">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    查看更多公告
+                </button>
+            `;
+            lucide.createIcons();
+        }
+
+        function expandList() {
+            isExpanded = true;
+            renderAnnouncements();
+        }
+
         function renderPagination(totalPages, totalItems) {
             const container = document.getElementById('pagination-container');
+            
+            // 如果資料少於一頁且不需要分頁，則隱藏或只顯示總數
             if (totalPages <= 1) {
                 container.innerHTML = `<span class="text-xs text-stone-400">共 ${totalItems} 筆資料</span>`;
                 return;
@@ -469,7 +652,6 @@
             let html = `<div class="text-xs text-stone-400 hidden md:block">共 ${totalItems} 筆資料</div>`;
             html += `<div class="flex items-center gap-1 justify-center flex-1">`;
 
-            // 上一頁
             html += `
                 <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} 
                     class="p-2 rounded hover:bg-stone-200 disabled:opacity-30 disabled:cursor-not-allowed text-stone-600">
@@ -477,10 +659,7 @@
                 </button>
             `;
 
-            // 頁碼 (簡單版：只顯示前後)
             for (let i = 1; i <= totalPages; i++) {
-                // 只顯示當前頁面附近的頁碼，避免太多 (這裡做簡單處理：全顯示或顯示前5頁，優化為全顯示因通常公告不多)
-                // 若頁數真的很多，建議加邏輯。這裡先全顯示
                 if (totalPages > 7 && Math.abs(currentPage - i) > 2 && i !== 1 && i !== totalPages) {
                     if (html.endsWith('...</span>')) continue;
                     html += `<span class="px-2 text-stone-400">...</span>`;
@@ -495,7 +674,6 @@
                 `;
             }
 
-            // 下一頁
             html += `
                 <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} 
                     class="p-2 rounded hover:bg-stone-200 disabled:opacity-30 disabled:cursor-not-allowed text-stone-600">
@@ -511,13 +689,14 @@
         function changePage(newPage) {
             currentPage = newPage;
             renderAnnouncements();
-            // 滾動到列表頂部
-            document.getElementById('search-input').scrollIntoView({ behavior: 'smooth' });
+            // 在多區塊頁面中，換頁時不需要滾動到最上方，只要回到公告區頂端即可
+            document.getElementById('announcements-section').scrollIntoView({ behavior: 'smooth' });
         }
 
         window.filterCategory = function(cat) {
             currentCategory = cat;
-            currentPage = 1; // 切換分類時回到第一頁
+            currentPage = 1; 
+            isExpanded = false; // 切換分類時重置為預覽模式，保持首頁整潔
             
             const titleMap = { 'all': '全部公告', '研習': '研習資訊', '訪視': '訪視輔導', '評鑑': '評鑑考核', '前後測': '前後測驗' };
             document.getElementById('current-category-title').textContent = titleMap[cat] || cat;
@@ -531,19 +710,24 @@
                 activeBtn.className = `category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 amis-red text-white shadow-lg translate-x-1`;
             }
 
-            document.getElementById('mobile-menu').classList.add('hidden');
+            closeMobileMenu();
             renderAnnouncements();
         };
 
         document.getElementById('search-input').addEventListener('input', (e) => {
             searchTerm = e.target.value;
-            currentPage = 1; // 搜尋時回到第一頁
+            currentPage = 1;
+            isExpanded = true; // 搜尋時自動展開，方便查看結果
             renderAnnouncements();
         });
 
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
 
         window.openModal = function(id) {
             const item = allAnnouncements.find(a => a.id == id);
@@ -552,7 +736,7 @@
             document.getElementById('modal-title').textContent = item.title;
             document.getElementById('modal-date').textContent = item.date;
             document.getElementById('modal-content').textContent = item.content;
-            document.getElementById('modal-organizer').textContent = item.organizer || "未註明"; // 設定彈跳視窗的承辦人
+            document.getElementById('modal-organizer').textContent = item.organizer || "未註明";
             
             const catBadge = document.getElementById('modal-category');
             catBadge.textContent = item.category;
