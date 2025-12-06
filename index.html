@@ -139,7 +139,7 @@
         <div class="absolute bottom-0 left-0 right-0 h-2 zigzag-pattern"></div>
         <div class="h-1 bg-yellow-400 w-full"></div>
 
-        <!-- 手機版選單 (修正：加入公告分類按鈕) -->
+        <!-- 手機版選單 -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF7] text-stone-800 absolute top-full w-full left-0 z-50 shadow-xl border-t border-stone-200 h-[calc(100vh-100px)] overflow-y-auto">
             <div class="p-4 space-y-4">
                 <!-- 導覽連結 -->
@@ -299,7 +299,7 @@
             <div class="h-full w-1/5 bg-[#10B981]"></div>
         </div>
 
-        <!-- 2. 關於工作圈 -->
+        <!-- 2. 關於工作圈 (About Section) -->
         <section id="about-section" class="py-16 bg-white relative">
             <div class="container mx-auto px-4">
                 <h2 class="section-title">關於工作圈</h2>
@@ -329,43 +329,100 @@
                     <span class="w-1 h-6 bg-yellow-400 rounded-full"></span> 參與園所
                 </h3>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">太巴塱國小附設幼兒園</p><p class="text-xs text-stone-500">光復鄉</p></div>
+                <!-- 參與園所列表 (依鄉鎮分組) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- 光復鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 光復鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">太巴塱國小附設幼兒園</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">光復鄉立幼兒園</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">光復鄉立幼兒園</p><p class="text-xs text-stone-500">光復鄉</p></div>
+
+                    <!-- 萬榮鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 萬榮鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">明利國小附設幼兒園</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">見晴國小附設幼兒園</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">紅葉國小附設幼兒園</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">豐濱國小附設幼兒園</p><p class="text-xs text-stone-500">豐濱鄉</p></div>
+
+                    <!-- 豐濱鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 豐濱鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">豐濱國小附設幼兒園</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">明利國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+
+                    <!-- 新城鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 新城鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">新城國小附設幼兒園</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">見晴國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+
+                    <!-- 秀林鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 秀林鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">秀林鄉立幼兒園</span>
+                                <span class="text-xs text-stone-400 ml-1">(佳民主園、和平分班)</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">紅葉國小附設幼兒園</p><p class="text-xs text-stone-500">萬榮鄉</p></div>
+
+                    <!-- 卓溪鄉 -->
+                    <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+                        <h4 class="font-bold text-[#D92424] mb-3 flex items-center gap-2 text-lg border-b border-red-50 pb-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 卓溪鄉
+                        </h4>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-stone-300 mt-2 shrink-0"></div>
+                                <span class="font-medium">卓樂國小附設幼兒園</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">新城國小附設幼兒園</p><p class="text-xs text-stone-500">新城鄉</p></div>
-                    </div>
-                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">秀林鄉立幼兒園</p><p class="text-xs text-stone-500">秀林鄉 (佳民主園、和平分班)</p></div>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 hover:border-red-200 hover:shadow-md transition-all flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 shadow-sm shrink-0"><i data-lucide="school"></i></div>
-                        <div><p class="font-bold text-stone-800">卓樂國小附設幼兒園</p><p class="text-xs text-stone-500">卓溪鄉</p></div>
-                    </div>
+
                 </div>
             </div>
         </section>
