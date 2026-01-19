@@ -108,7 +108,7 @@
 <body class="flex flex-col min-h-screen relative">
 
     <!-- 背景紋理 -->
-    <div class="fixed inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="fixed inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
     <!-- 頁首 Header -->
     <header class="amis-red shadow-lg sticky top-0 z-30">
@@ -167,6 +167,12 @@
                     <div class="grid grid-cols-2 gap-2">
                         <button onclick="filterCategory('all')" class="category-btn-mobile w-full flex items-center justify-center gap-2 px-3 py-3 rounded-lg text-sm font-bold bg-white border border-stone-200 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
                             <i data-lucide="bell" class="w-4 h-4"></i> 全部
+                        </button>
+                        <button onclick="filterCategory('行政')" class="category-btn-mobile w-full flex items-center justify-center gap-2 px-3 py-3 rounded-lg text-sm font-bold bg-white border border-stone-200 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="file-signature" class="w-4 h-4"></i> 行政
+                        </button>
+                        <button onclick="filterCategory('工作圈')" class="category-btn-mobile w-full flex items-center justify-center gap-2 px-3 py-3 rounded-lg text-sm font-bold bg-white border border-stone-200 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i> 工作圈
                         </button>
                         <button onclick="filterCategory('研習')" class="category-btn-mobile w-full flex items-center justify-center gap-2 px-3 py-3 rounded-lg text-sm font-bold bg-white border border-stone-200 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
                             <i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習
@@ -232,6 +238,12 @@
                         <button onclick="filterCategory('all')" id="btn-all" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 amis-red text-white shadow-lg translate-x-1">
                             <i data-lucide="bell" class="w-4 h-4"></i> 全部公告
                         </button>
+                        <button onclick="filterCategory('行政')" id="btn-行政" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="file-signature" class="w-4 h-4"></i> 行政
+                        </button>
+                        <button onclick="filterCategory('工作圈')" id="btn-工作圈" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i> 工作圈
+                        </button>
                         <button onclick="filterCategory('研習')" id="btn-研習" class="category-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all duration-300 text-stone-600 hover:bg-red-50 hover:text-[#D92424]">
                             <i data-lucide="graduation-cap" class="w-4 h-4"></i> 研習資訊
                         </button>
@@ -269,6 +281,8 @@
                 <!-- 手機版專用：橫向滑動分類篩選列 -->
                 <div class="md:hidden flex overflow-x-auto gap-2 pb-2 mb-2 scrollbar-hide -mx-4 px-4 sticky top-[72px] z-20 bg-[#FDFBF7] py-2 border-b border-stone-100">
                     <button onclick="filterCategory('all')" id="m-btn-all" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-[#D92424] text-white border-[#D92424] shadow-sm">全部</button>
+                    <button onclick="filterCategory('行政')" id="m-btn-行政" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-white text-stone-600 border-stone-200">行政</button>
+                    <button onclick="filterCategory('工作圈')" id="m-btn-工作圈" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-white text-stone-600 border-stone-200">工作圈</button>
                     <button onclick="filterCategory('研習')" id="m-btn-研習" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-white text-stone-600 border-stone-200">研習</button>
                     <button onclick="filterCategory('訪視')" id="m-btn-訪視" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-white text-stone-600 border-stone-200">訪視</button>
                     <button onclick="filterCategory('評鑑')" id="m-btn-評鑑" class="m-cat-btn shrink-0 px-4 py-2 rounded-full text-sm font-bold border transition-colors bg-white text-stone-600 border-stone-200">評鑑</button>
@@ -796,6 +810,8 @@
                 else if(item.category === '訪視') badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-200";
                 else if(item.category === '評鑑') badgeColor = "bg-yellow-50 text-yellow-800 border-yellow-200";
                 else if(item.category === '前後測') badgeColor = "bg-zinc-50 text-zinc-700 border-zinc-200";
+                else if(item.category === '行政') badgeColor = "bg-blue-50 text-blue-700 border-blue-200";
+                else if(item.category === '工作圈') badgeColor = "bg-orange-50 text-orange-800 border-orange-200";
 
                 const html = `
                 <div class="group px-6 py-4 border-b border-stone-100 hover:bg-red-50/50 transition-colors cursor-pointer flex flex-col md:flex-row md:items-center gap-2 md:gap-4" onclick="openModal('${item.id}')">
@@ -904,7 +920,7 @@
             currentPage = 1; 
             isExpanded = true; 
             
-            const titleMap = { 'all': '全部公告', '研習': '研習資訊', '訪視': '訪視輔導', '評鑑': '評鑑考核', '前後測': '前後測驗' };
+            const titleMap = { 'all': '全部公告', '研習': '研習資訊', '訪視': '訪視輔導', '評鑑': '評鑑考核', '前後測': '前後測驗', '行政': '行政公告', '工作圈': '工作圈' };
             document.getElementById('current-category-title').textContent = titleMap[cat] || cat;
             
             // 更新桌機按鈕樣式
@@ -967,6 +983,8 @@
             else if(item.category === '訪視') catBadge.classList.add('bg-emerald-50', 'text-emerald-700', 'ring-emerald-600/20');
             else if(item.category === '評鑑') catBadge.classList.add('bg-yellow-50', 'text-yellow-800', 'ring-yellow-600/20');
             else if(item.category === '前後測') catBadge.classList.add('bg-zinc-50', 'text-zinc-700', 'ring-zinc-600/20');
+            else if(item.category === '行政') catBadge.classList.add('bg-blue-50', 'text-blue-700', 'ring-blue-600/20');
+            else if(item.category === '工作圈') catBadge.classList.add('bg-orange-50', 'text-orange-800', 'ring-orange-600/20');
             else catBadge.classList.add('bg-gray-50', 'text-gray-600', 'ring-gray-500/10');
 
             const linkArea = document.getElementById('modal-link-area');
